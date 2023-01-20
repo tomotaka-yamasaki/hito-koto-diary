@@ -3,8 +3,8 @@ import datetime
 import locale
 import os.path
 
-from config import config
-from google import spreadsheets as spsh
+from config.config import Config
+from lib.google.spreadsheets import GoogleSpreadSheet
 
 COLUMN_LIST = {
     "PRIVATE": {"alpha": "B", "index": 1},
@@ -14,8 +14,8 @@ COLUMN_LIST = {
 
 
 def get_spreadsheet():
-    cred_dir = os.path.join(os.path.dirname(__file__), config.SA_KEY_PATH)
-    return spsh.GoogleSpreadSheet(config.SPREADSHEET_ID, cred_dir)
+    cred_dir = os.path.join(os.path.dirname(__file__), Config.SA_KEY_PATH)
+    return GoogleSpreadSheet(Config.SPREADSHEET_ID, cred_dir)
 
 
 def write_diary(date, text, column, force):
