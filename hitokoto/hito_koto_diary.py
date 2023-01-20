@@ -1,5 +1,5 @@
-from hitokoto.google import spreadsheets as spsh
-from hitokoto.config import config
+from google import spreadsheets as spsh
+from config import config
 
 import os.path
 import argparse
@@ -81,3 +81,6 @@ def main():
     else:
         response = write_diary(formated_date, text, args.column, args.force)
         print(response)
+
+if __name__ == "__main__":
+    main()
