@@ -3,18 +3,21 @@
 
 ## Usage
 ```
-$ hitokoto -h
-usage: hitokoto [-h] [-t TEXT] [-d DATE] [-c {PRIVATE,WORK,MEMO}] [-f]
+$ hitokoto --help
+Usage: hitokoto [OPTIONS]
 
-ヒトコト日記 - Google Spreadsheet に対しての読み込み、書き込み操作を行う
+  ヒトコト日記 CLI
 
-options:
-  -h, --help            show this help message and exit
-  -t TEXT, --text TEXT  書き込みたい文字列を指定する
-  -d DATE, --date DATE  読み書き対象の日記の日付 yyyy-mm-dd
-  -c {PRIVATE,WORK,MEMO}, --column {PRIVATE,WORK,MEMO}
-                        書き込むカラムを指定する
-  -f, --force           書き込み操作実行時に値の上書きを強制する
+  ヒトコト日記として利用している Google Spreadsheet に対しての読み込み、書き込み操作を行う
+
+Options:
+  -t, --text TEXT                 書き込むテキスト
+  -d, --date [%Y-%m-%d|%Y/%m/%d]  予定の取得日 (yyyy-mm-dd or yyyy/mm/dd)
+                                  default:Today
+  -c, --column [PRIVATE|WORK|MEMO]
+                                  書き込むカラムを指定する
+  -force, -f                      書き込み操作実行時に値の上書きを強制する
+  --help                          Show this message and exit.
 ```
 
 ## Install
@@ -31,9 +34,15 @@ options:
 |......||||
 |2022/12/31(土)||||
 
-### 環境変数設定
+### 仮想環境構築
+```zsh
+$ pipenv install --dev
+$ popenv shell
 ```
-$ cp hitokoto/config/.env.sample hitokoto/config/.env
+
+### 環境変数設定
+```zsh
+$ cp src/hitokoto/config/.env.sample src/hitokoto/config/.env
 $ vim .env
 ```
 * .env内に必要な情報を記述する
@@ -45,7 +54,15 @@ $ vim .env
   * credentials.json をダウンロードし、上で指定したSA_KEY_PATHに保存
 * スプレッドシートアクセスに使用するため、サービスアカウントを当該スプレッドシートの共有設定に追加し権限を与える
 
-### pipインストール
+## 実行
+### Local
 ```
-$ pip3 install -e .
+$ python src/hitokoto/hito_koto_diary.py
+```
+
+### pip install
+```
+$ exit
+$ pip install <path to pyproject.toml>
+$ hitokoto
 ```
