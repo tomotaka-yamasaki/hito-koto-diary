@@ -1,8 +1,8 @@
-import argparse
 import datetime
 import locale
 import os.path
 
+import click
 from config.config import Config
 from lib.google.spreadsheets import GoogleSpreadSheet
 
@@ -64,28 +64,25 @@ def to_formatdate_for_diary(year, month, day):
     return datetime.datetime(year, month, day).strftime("%Y/%m/%d (%a)")
 
 
-def main():
+@click.command()
+@click.option("--text", "-t", type=str, default="", help="書き込むテキスト")
+@click.option(
+    "--date",
+    "-d",
+    type=click.DateTime(["%Y-%m-%d", "%Y/%m/%d"]),
+    default=datetime.datetime.today().strftime("%Y-%m-%d"),
+    help="予定の取得日 (yyyy-mm-dd or yyyy/mm/dd) default:Today",
+)
+@click.option("--column", "-c", type=click.Choice(["PRIVATE", "WORK", "MEMO"]), default="PRIVATE", help="書き込むカラムを指定する")
+@click.option("-force", "-f", is_flag=True, default=False, help="書き込み操作実行時に値の上書きを強制する")
+def main(text, date, column, force):
     locale.setlocale(locale.LC_TIME, "ja_JP.UTF-8")
-
-    today = datetime.datetime.today().strftime("%Y-%m-%d")
-    date_type = lambda s: datetime.datetime.strptime(s, "%Y-%m-%d")
-
-    # コマンドライン引数設定
-    parser = argparse.ArgumentParser(description="ヒトコト日記 - Google Spreadsheet に対しての読み込み、書き込み操作を行う")
-    parser.add_argument("-t", "--text", default="", help="書き込みたい文字列を指定する")
-    parser.add_argument("-d", "--date", type=date_type, default=today, help="読み書き対象の日記の日付 yyyy-mm-dd")
-    parser.add_argument("-c", "--column", default="PRIVATE", choices=["PRIVATE", "WORK", "MEMO"], help="書き込むカラムを指定する")
-    parser.add_argument("-f", "--force", default=False, action="store_true", help="書き込み操作実行時に値の上書きを強制する")
-
-    args = parser.parse_args()
-    formated_date = args.date.strftime("%Y-%m-%d")
-    text = args.text
-
+    formated_date = date.strftime("%Y-%m-%d")
     if not text:
         response = read_diary(formated_date)
         print(response)
     else:
-        response = write_diary(formated_date, text, args.column, args.force)
+        response = write_diary(formated_date, text, column, force)
         print(response)
 
 
