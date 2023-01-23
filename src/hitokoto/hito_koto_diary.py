@@ -76,6 +76,10 @@ def to_formatdate_for_diary(year, month, day):
 @click.option("--column", "-c", type=click.Choice(["PRIVATE", "WORK", "MEMO"]), default="PRIVATE", help="書き込むカラムを指定する")
 @click.option("-force", "-f", is_flag=True, default=False, help="書き込み操作実行時に値の上書きを強制する")
 def main(text, date, column, force):
+    """ヒトコト日記 CLI
+
+    ヒトコト日記として利用している Google Spreadsheet に対しての読み込み、書き込み操作を行う。
+    """
     locale.setlocale(locale.LC_TIME, "ja_JP.UTF-8")
     formated_date = date.strftime("%Y-%m-%d")
     if not text:
