@@ -37,7 +37,7 @@ Options:
 ### 仮想環境構築
 ```zsh
 $ pipenv install --dev
-$ popenv shell
+$ pipenv shell
 ```
 
 ### 環境変数設定
