@@ -66,3 +66,5 @@ $ exit
 $ pip install <path to pyproject.toml>
 $ hitokoto
 ```
+
+* pip install することでパッケージのバージョンが自動的に振られる
