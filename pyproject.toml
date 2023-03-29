@@ -23,7 +23,7 @@ dynamic = ["version"]
 Source = "https://github.com/tomotaka-yamasaki/hito-koto-diary"
 
 [project.scripts]
-"hitokoto" = "src.hitokoto.hito_koto_diary:main"
+"hitokoto" = "hitokoto.hito_koto_diary:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
