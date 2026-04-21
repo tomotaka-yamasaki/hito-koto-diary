@@ -36,8 +36,7 @@ Options:
 
 ### 仮想環境構築
 ```zsh
-$ pipenv install --dev
-$ pipenv shell
+$ uv sync
 ```
 
 ### 環境変数設定
@@ -56,15 +55,36 @@ $ vim .env
 
 ## 実行
 ### Local
-```
-$ python src/hitokoto/hito_koto_diary.py
+```zsh
+$ uv run hitokoto
 ```
 
 ### pip install
-```
-$ exit
-$ pip install <path to pyproject.toml>
+```zsh
+$ uv build
+$ uv pip install dist/*.whl
 $ hitokoto
 ```
 
-* pip install することでパッケージのバージョンが自動的に振られる
+* パッケージのバージョンは git タグから自動的に振られる (hatch-vcs)
+
+## 開発
+### Lint & Format
+```zsh
+# リントチェック
+$ uv run ruff check src/
+
+# リント自動修正
+$ uv run ruff check --fix src/
+
+# フォーマットチェック
+$ uv run ruff format --check src/
+
+# フォーマット適用
+$ uv run ruff format src/
+```
+
+### 型チェック
+```zsh
+$ uv run mypy src/
+```

@@ -73,7 +73,9 @@ def to_formatdate_for_diary(year, month, day):
     default=datetime.datetime.today().strftime("%Y-%m-%d"),
     help="予定の取得日 (yyyy-mm-dd or yyyy/mm/dd) default:Today",
 )
-@click.option("--column", "-c", type=click.Choice(["PRIVATE", "WORK", "MEMO"]), default="PRIVATE", help="書き込むカラムを指定する")
+@click.option(
+    "--column", "-c", type=click.Choice(["PRIVATE", "WORK", "MEMO"]), default="PRIVATE", help="書き込むカラムを指定する"
+)
 @click.option("-force", "-f", is_flag=True, default=False, help="書き込み操作実行時に値の上書きを強制する")
 def main(text, date, column, force):
     """ヒトコト日記 CLI
