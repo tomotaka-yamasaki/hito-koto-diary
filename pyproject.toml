@@ -40,6 +40,12 @@ source = "vcs"
 version_scheme = "python-simplified-semver"
 local_scheme = "no-local-version"
 
+[tool.hatch.build]
+artifacts = [
+    "src/hitokoto/config/.env",
+    "src/hitokoto/credentials/credentials.json",
+]
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/hitokoto"]
 
